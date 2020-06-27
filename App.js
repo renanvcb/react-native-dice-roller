@@ -1,34 +1,64 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Text, SafeAreaView, View, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import Constants from 'expo-constants';
 
 export default function App() {
+  const [quantity, setQuantity] = useState(1);
+  const [modifier, setModifier] = useState(0);
+
+  const addQuantity = () => {
+    setQuantity(quantity + 1)
+    console.log(quantity);
+
+  };
+
+  const decQuantity = () => {
+    setQuantity(quantity - 1)
+    console.log(quantity);
+
+  };
+
+  const addModifier = () => {
+    setModifier(modifier + 1)
+    console.log(modifier);
+
+  };
+
+  const decModifier = () => {
+    setModifier(modifier - 1)
+    console.log(modifier);
+
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.horizontalView}>
-        <TouchableOpacity style={styles.btnCircle}>
+        <TouchableOpacity style={styles.btnCircle} onPress={decQuantity}>
           <Text style={styles.textBtnCircle}>-</Text>
         </TouchableOpacity>
-        <TextInput placeholder='Quantidade' keyboardType='number-pad' style={styles.input} />
-        <TouchableOpacity style={styles.btnCircle}>
+
+        <TextInput placeholder='Quantidade' keyboardType='number-pad' style={styles.input}>{quantity}</TextInput>
+
+        <TouchableOpacity style={styles.btnCircle} onPress={addQuantity}>
           <Text style={styles.textBtnCircle}>+</Text>
         </TouchableOpacity>
       </View>
 
       <View style={{
-          // backgroundColor: '#fafafa',
-          alignItems: 'center',
-          marginBottom: 12,
-          paddingVertical: 8,
+        // backgroundColor: '#fafafa',
+        alignItems: 'center',
+        marginBottom: 12,
+        paddingVertical: 8,
 
-        }}>
+      }}>
         <RNPickerSelect
           onValueChange={(value) => console.log(value)}
           placeholder={{
             label: 'Selecione um dado...',
             value: null,
-            color: '#9EA0A4',}}
+            color: '#9EA0A4',
+          }}
           items={[
             { label: 'D4', value: '4' },
             { label: 'D6', value: '6' },
@@ -44,11 +74,11 @@ export default function App() {
       </View>
 
       <View style={styles.horizontalView}>
-        <TouchableOpacity style={styles.btnCircle}>
+        <TouchableOpacity style={styles.btnCircle} onPress={decModifier}>
           <Text style={styles.textBtnCircle}>-</Text>
         </TouchableOpacity>
-        <TextInput placeholder='Modificador' keyboardType='numeric' style={styles.input} />
-        <TouchableOpacity style={styles.btnCircle}>
+        <TextInput placeholder='Modificador' keyboardType='numeric' style={styles.input}>{modifier}</TextInput>
+        <TouchableOpacity style={styles.btnCircle} onPress={addModifier}>
           <Text style={styles.textBtnCircle}>+</Text>
         </TouchableOpacity>
       </View>
@@ -102,7 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 8,
   },
   textBtnAction: {
     fontWeight: 'bold',
@@ -128,7 +158,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 8,
   },
   resultView: {
     paddingHorizontal: 20,
@@ -140,24 +170,22 @@ const styles = StyleSheet.create({
     height: 100,
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 8,
     padding: 10,
   },
 });
 
-const pickerStyle = {
+const pickerStyle = StyleSheet.create({
   inputIOS: {
     color: 'black',
     paddingTop: 10,
-    // paddingHorizontal: 10,
-    // paddingBottom: 12,
     height: 50,
     width: 180,
     marginHorizontal: 96,
     padding: 10,
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 8,
   },
   inputAndroid: {
     color: 'black',
@@ -167,22 +195,22 @@ const pickerStyle = {
     padding: 10,
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 8,
   },
   // placeholderColor: 'white',
   // underline: { borderTopWidth: 0 },
   icon: {
-    // position: 'absolute',
-    // backgroundColor: 'transparent',
-    // borderTopWidth: 5,
-    // borderTopColor: '#00000099',
-    // borderRightWidth: 5,
-    // borderRightColor: 'transparent',
-    // borderLeftWidth: 5,
-    // borderLeftColor: 'transparent',
-    // width: 0,
-    // height: 0,
-    // top: 20,
-    // right: 15,
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    borderTopWidth: 5,
+    borderTopColor: '#00000099',
+    borderRightWidth: 5,
+    borderRightColor: 'transparent',
+    borderLeftWidth: 5,
+    borderLeftColor: 'transparent',
+    width: 0,
+    height: 0,
+    top: 20,
+    right: 15,
   },
-};
+});
